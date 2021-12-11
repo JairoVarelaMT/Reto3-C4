@@ -1,0 +1,11 @@
+zorrillo\reto2\model\Fragance.class
+zorrillo\reto2\repository\crud\UserCrudRepository.class
+zorrillo\reto2\model\User.class
+zorrillo\reto2\ZorrilloApplication.class
+zorrillo\reto2\service\UserService.class
+zorrillo\reto2\repository\FraganceRepositorio.class
+zorrillo\reto2\controller\FraganceControlador.class
+zorrillo\reto2\repository\crud\FraganceCrudRepositorio.class
+zorrillo\reto2\repository\UserRepository.class
+zorrillo\reto2\service\FraganceServicio.class
+zorrillo\reto2\controller\UserController.class
