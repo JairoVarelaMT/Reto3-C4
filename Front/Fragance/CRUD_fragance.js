@@ -3,10 +3,6 @@ $(document).ready(function(){
     AllFragance();
 });
 
-const btnActualizar = document.getElementById('btnActualizar');
-btnActualizar.addEventListener('onclick',() =>{
-    actualizarFragance();
-});
 //mostrar todas las fragance
 function AllFragance(){
     $.ajax({
