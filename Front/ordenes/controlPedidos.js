@@ -1,8 +1,7 @@
 var usuario = sessionStorage.getItem('user');
 var user_online= JSON.parse(usuario);
-
 const json= { 
-    id:  3, 
+    id:  user_online.identification, 
     registerDay: "2021-11-15T05:00:00.000+00:00", 
     status: "Pendiente", 
     salesMan:     
@@ -25,50 +24,62 @@ const json= {
                             "AP-903": 1
                         }
 }
+function orden(respuesta) {
+    var nuevo = {
+        [`${respuesta.reference}`]: 
+                {
+                    reference:  "perra",
+                    brand: "respuesta.brand",
+                    category: "respuesta.category",
+                    presentation: "respuesta.presentation",
+                    description: "respuesta.description",
+                    availability:" respuesta.availability",
+                    price: "respuesta.price",
+                    quantity: "respuesta.quantity",
+                    photography: "respuesta.photography"
+                }
+        }
+        
+         json.products[ [`${respuesta.reference}`]] =  nuevo;
+         enviarPedido(json);
+}
+
 
 $(document).ready(function(){
-    
+   /*  reference:  respuesta.reference,
+    brand: respuesta.brand,
+    category: respuesta.category,
+    presentation: respuesta.presentation,
+    description: respuesta.description,
+    availability: respuesta.availability,
+    price: respuesta.price,
+    quantity: respuesta.quantity,
+    photography: respuesta.photography */
+    let fecha = new Date();
+    console.log(fecha.getTime)
 });
- 
- function AgregarPedido(reference, cantidad) {
-     console.log(cantidad)
+
+
+ function AgregarPedido(reference) {
+     
     $.ajax({
         url:"http://132.226.255.90:8080/api/fragance/"+reference,
         type: 'GET',
         dataType: "json",
 
         success:function(respuesta){
-            const nuevo = {
-                [`${respuesta.reference}`]: 
-                        {
-                            reference:  respuesta.reference,
-                            brand: respuesta.brand,
-                            category: respuesta.category,
-                            presentation: respuesta.presentation,
-                            description: respuesta.description,
-                            availability: respuesta.availability,
-                            price: respuesta.price,
-                            quantity: respuesta.quantity,
-                            photography: respuesta.photography
-                        }
-                }
-                console.log(nuevo);
-                json.products[ [`${respuesta.reference}`]] =  nuevo;
-                console.log(json)
+            orden(respuesta)
+                
         },
         error:function(xhr,status){
             console.log(status);
         },
     });
 }
-var btnEnviarPedido = document.getElementById('btnEnviarPedido');
-btnEnviarPedido.addEventListener('click', ()=>{
-    console.log('Entro al btn')
-    enviarPedido(json);
-});
-
 //
 function enviarPedido(json){
+    console.log(JSON.stringify(json))
+
     $.ajax({
         url:"http://132.226.255.90:8080/api/order/new",
         type:'POST',
