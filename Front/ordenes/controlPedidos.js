@@ -1,7 +1,8 @@
 var usuario = sessionStorage.getItem('user');
 var user_online= JSON.parse(usuario);
+
 const json= { 
-    id: 3, 
+    id:  3, 
     registerDay: "2021-11-15T05:00:00.000+00:00", 
     status: "Pendiente", 
     salesMan:     
@@ -22,7 +23,6 @@ const json= {
             }, 
             quantities: {   "AP-904": 1,
                             "AP-903": 1
-                             
                         }
 }
 
@@ -52,17 +52,44 @@ $(document).ready(function(){
                             photography: respuesta.photography
                         }
                 }
+                console.log(nuevo);
                 json.products[ [`${respuesta.reference}`]] =  nuevo;
+                console.log(json)
         },
         error:function(xhr,status){
             console.log(status);
         },
     });
 }
+var btnEnviarPedido = document.getElementById('btnEnviarPedido');
+btnEnviarPedido.addEventListener('click', ()=>{
+    console.log('Entro al btn')
+    enviarPedido(json);
+});
 
- function eliminarProducto(params) {
-    
- }
- function recorrerTabla(tabla) {
-    
- } 
+//
+function enviarPedido(json){
+    $.ajax({
+        url:"http://132.226.255.90:8080/api/order/new",
+        type:'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: 'JSON',
+        data: JSON.stringify(json),
+        success:function(e) {
+            Swal.fire({
+                icon: 'success',
+                title: 'El pedido a sido creado exitosamente..',
+                showConfirmButton: false,
+                timer: 1500
+              })
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No se pudo guardar la orden. rest api'
+              })  
+        }
+        });
+}

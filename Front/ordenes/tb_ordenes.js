@@ -1,7 +1,7 @@
 $(document).ready(function(){
     fragances();
     var tabla=$('#tablaFragance');
-    recorrerTabla(tabla);
+    
 });
 
 function fragances(){

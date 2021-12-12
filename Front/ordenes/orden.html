@@ -20,9 +20,7 @@
     <!--Css-->
     <link rel="stylesheet" href="/Front/menu.css">
     <!--JS-->
-    <script src="/Front/localstorage.js"></script>
-    <script src="/Front/ordenes/tb_ordenes.js"></script>
-    <script src="/Front/ordenes/agregarProducto.js"></script> 
+   
     <title>Orden</title>
 </head>
 <body>
@@ -77,11 +75,15 @@
       <div class="container">
         <h1 class="p-5"> Productos para orden de pedido</h1>
         <div class="">
-          <Button class="btn btn-success mt-5" id="" onclick="iniciarSesion()">Loggin</Button>
+          <Button class=" btn btn-success mt-5 mb-3" id="btnEnviarPedido" >Enviar pedido</Button>
         </div>
         <div id="tablaFragance"></div>
       </div>
        
     </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/Front/localstorage.js"></script>
+    <script src="/Front/ordenes/tb_ordenes.js"></script>
+    <script src="/Front/ordenes/controlPedidos.js"></script> 
 </body>
 </html>

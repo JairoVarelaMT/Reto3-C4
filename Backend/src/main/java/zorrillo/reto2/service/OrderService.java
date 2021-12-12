@@ -33,11 +33,8 @@ public class OrderService {
     }
 
     public Order save(Order order){
-        if (order.getId()==null) {
-            return order;
-        }else{
-            return orderRepository.save(order);
-        }
+        return orderRepository.save(order);
+       
     }
     public Order update(Order order){
         if (order.getId()!=null) {
