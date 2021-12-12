@@ -55,8 +55,7 @@ $(document).ready(function(){
     price: respuesta.price,
     quantity: respuesta.quantity,
     photography: respuesta.photography */
-    let fecha = new Date();
-    console.log(fecha.getTime)
+  
 });
 
 

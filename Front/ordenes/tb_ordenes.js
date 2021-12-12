@@ -55,7 +55,7 @@ function orders() {
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
-            console.log(respuesta);
+            
             mostrarOrders(respuesta);
         }
     });
@@ -63,7 +63,7 @@ function orders() {
 function mostrarOrders(respuesta) {
     var myTable=`<table class=" table table-info table-striped" border="2">
                 <tr>
-                <th>Identificacion</th>
+                <th>numero orden</th>
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>tipo</th>
@@ -73,7 +73,7 @@ function mostrarOrders(respuesta) {
     for(i=0;i<respuesta.length;i++){
         
         myTable+="<tr>";
-        myTable+="<td>"+respuesta[i].salesMan.id+"</td>";
+        myTable+="<td>"+respuesta[i].id+"</td>";
         myTable+="<td>"+respuesta[i].salesMan.name+"</td>";
         myTable+="<td>"+respuesta[i].salesMan.email+"</td>";
         myTable+="<td>"+respuesta[i].salesMan.type+"</td>";
@@ -92,45 +92,41 @@ function VerOrdenes(orderID){
         url:"http://132.226.255.90:8080/api/order/"+orderID,
         type: 'GET',
         dataType: "json",
-
-        success:function(respuesta){
-            console.log("order por id"+respuesta)
-            orderPorUsuario(respuesta);
+        success:function(data){
+            console.log('Gonorrea')
+            ordersUsuario(data);
         },
         error:function(xhr,status){
             console.log(status);
         },
     });
 }
-function orderPorUsuario(respuesta) {
-    console.log("Entro"+respuesta.id)
-        var Table=`<table class=" table table-info table-striped" border="2">
-                <tr>
-                <th>Fecha</th>
-                <th>Numero de pedido</th>
-                <th>Estado</th>
-                <th>cambiar estado</th>
-                <th colspan="1" align="center">Guardar</th>
-                </tr>`;
-            for(i=0;i<respuesta.length;i++){    
-            Table+="<tr>";
-            Table+="<td>"+respuesta[i].registerDay+"</td>";
-            console.log(respuesta[i].registerDay)
-            Table+="<td>"+respuesta[i].id+"</td>";
-            console.log(respuesta[i].id)
-            Table+="<td>"+respuesta[i].status+"</td>";
-            console.log(respuesta[i].status)
-            Table+='<td> <select id="estado" class="form-select"> <option value="Pendiente">Pendiente</option><option value="Aprovado">Aprovado</option><option value="Rechazado">Rechazado</option> </select> </td>';
-            Table+='<td> <button class="btn btn-success " onClick="cambiarEstado(' + respuesta[i].id + ')" />Guardar</button>'
-
-            Table+="</tr>";
-            }
-            Table+="</table>";
-            $("#tablaOrderPorUsuario").html(Table);
+var contenido = document.getElementById('tablaOrderPorUsuario');
+function ordersUsuario(data) {
+   
+    console.log(data.id)
+    console.log(data.registerDay)
+    console.log(data.length)
+    console.log( Object.keys(data))
+    contenido.innerHTML = ''
+     for (let clave of Object.keys(data)) {
+        //console.log(clave, valor);
+        contenido.innerHTML += `
+        <tr>
+            <th scope="row">${data.registerDay}</th>
+            <td>${data.id}</td>
+            <td>${data.status}</td>
+           
+            <td> <select id="estado" class="form-select"> <option value="Pendiente">Pendiente</option><option value="Aprovado">Aprovado</option><option value="Rechazado">Rechazado</option> </select> </td>
+            <td> <button class="btn btn-success " onClick="cambiarEstado(' + respuesta[i].id + ')" />Guardar</button>
+        </tr>
+        `;
+    }
+        
 }
 function cambiarEstado(id) {
     $.ajax({
-        url:"http://132.226.255.90:8080/api/order/"+orderID,
+        url:"http://132.226.255.90:8080/api/order/"+id,
         type: 'GET',
         dataType: "json",
 
